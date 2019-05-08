@@ -7,12 +7,13 @@
 
      route 路由
     <ul>
-      <li> <router-link to="/">Home</router-link> </li>
+      <li> <router-link to="/home">Home</router-link> </li>
       <li> <router-link to="/helloworld">Hello</router-link> </li>
     </ul>
     <router-view></router-view>
 
-
+    <el-button type="primary" icon="el-icon-search" @click="getApiData">点击得到数据</el-button>
+    {{msg}}
     <el-table
       :data="tableData"
       stripe
@@ -47,6 +48,7 @@
 
 <script>
   import paging from './components/paging.vue'
+  import axios from 'axios'
   export default {
     name: 'app',
     data () {
@@ -111,6 +113,23 @@
         }
       }
 
+    },
+    methods:{
+        getApiData:function() {
+                //设置请求路径
+               var url  = "json/data.json";
+              // 发送请求:将数据返回到一个回到函数中
+              // function() {}  用es6箭头函数 （）=> {}
+              axios.get(url).then((result) =>{
+                       // result是所有的返回回来的数据
+                       // 包括了响应报文行
+                       // 响应报文头
+                       // 响应报文体
+                       console.log(this);
+                       this.msg = result.data.author
+
+                   });
+        }
     },
     components:{
         paging

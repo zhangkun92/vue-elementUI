@@ -15,7 +15,7 @@ Vue.config.productionTip = false
 //配置路由
 const router = new  VueRouter({
   routes:[
-    {path:'/',component:Home},
+    {path:'/home',component:Home},
     {path:'/helloworld',component:HelloWorld}
   ],
   mode:"history"
