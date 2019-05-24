@@ -14,7 +14,7 @@
 
     <el-button type="primary" icon="el-icon-search" @click="getApiData">点击得到数据</el-button>
     {{msg}}
-    <el-table
+    <el-table  v-loading="loading"
       :data="tableData"
       stripe
       style="width: 100%">
@@ -53,25 +53,9 @@
     name: 'app',
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App',
-        tableData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }],
-
+        msg: "",
+        tableData:null,
+        loading: false,
         data: [{
           id: 1,
           label: '一级 1',
@@ -116,17 +100,20 @@
     },
     methods:{
         getApiData:function() {
+
+              this.loading = true
+              console.log(this.loading)
                 //设置请求路径
-               var url  = "json/data.json";
-              // 发送请求:将数据返回到一个回到函数中
+               var url  = "json/table.json";
               // function() {}  用es6箭头函数 （）=> {}
               axios.get(url).then((result) =>{
                        // result是所有的返回回来的数据
                        // 包括了响应报文行
                        // 响应报文头
                        // 响应报文体
-                       console.log(this);
-                       this.msg = result.data.author
+                       this.loading = false;
+                       console.log(this.loading)
+                       this.tableData = result.data
 
                    });
         }
